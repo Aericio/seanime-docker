@@ -49,19 +49,20 @@ jobs:
         if: steps.check_build.outputs.BUILD_NEEDED == 'true'
         uses: docker/setup-buildx-action@v3
 
-      - name: Log in to Docker Hub
+      - name: Log in to GitHub Container Registry
         if: steps.check_build.outputs.BUILD_NEEDED == 'true'
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         if: steps.check_build.outputs.BUILD_NEEDED == 'true'
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: umagistr/seanime
+          images: ghcr.io/aericio/seanime-docker/seanime
           tags: |
             type=raw,value=${{ steps.seanime_release.outputs.LATEST_RELEASE }}
             type=raw,value=latest
