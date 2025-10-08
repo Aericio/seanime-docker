@@ -34,11 +34,12 @@ RUN if [ "$TARGETARCH" = "arm" ] && [ "$TARGETVARIANT" = "v7" ]; then \
     fi
 
 # Stage 3: Final Stage
-FROM --platform=$TARGETPLATFORM alpine:latest
+FROM --platform=$TARGETPLATFORM nvidia/cuda:12.6.3-runtime-ubuntu24.04
 
 # Install necessary packages
-RUN apk add --no-cache \
-    ffmpeg
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy the Go-built application from the previous stage
 COPY --from=go-builder /tmp/build/seanime /app/
