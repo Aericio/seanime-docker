@@ -4,7 +4,7 @@ A simple, Docker image for [Seanime](https://seanime.rahim.app/).
 
 Video transcoding via [FFmpeg](https://ffmpeg.org/) works out of the box.
 
-Unlike umag's version, the server image is based on `nvidia/cuda:12.6.3-runtime-ubuntu24.04` image instead of alpine images. This is because alpine images do not support CUDA/NVENC, so hardware transcode will not work. To verify that the container has CUDA/NVENC support with FFMPEG, run `ffmpeg -hide_banner -init_hw_device "list"` and `cuda` should be an option.
+Unlike umag's version, the server image is based on `nvidia/cuda:13.0.2-runtime-ubuntu24.04` image instead of alpine images. This is because alpine images do not support CUDA/NVENC, so hardware transcode will not work. To verify that the container has CUDA/NVENC support with FFMPEG, run `ffmpeg -hide_banner -init_hw_device "list"` and `cuda` should be an option.
 
 ## Usage
 
