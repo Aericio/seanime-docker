@@ -11,7 +11,7 @@ COPY ./seanime-web /tmp/build
 
 WORKDIR /tmp/build
 
-RUN npm ci
+RUN npm install
 RUN npm run build
 
 # Stage 2: Go Builder
@@ -39,7 +39,12 @@ FROM --platform=$TARGETPLATFORM nvidia/cuda:13.0.2-runtime-ubuntu24.04
 # Install necessary packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
+
+# Fix missing certificate (#1)
+COPY Comodo_AAA_Services_root.crt /usr/local/share/ca-certificates/
+RUN update-ca-certificates
 
 # Copy the Go-built application from the previous stage
 COPY --from=go-builder /tmp/build/seanime /app/

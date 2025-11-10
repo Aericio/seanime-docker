@@ -30,11 +30,11 @@ services:
 
 `3211` - Seanime web interface.
 
-
 ### Volumes
 
 `/anime` - Downloads and media files are stored here.
 
-`/seanime-config` - This is where the configuration files for Seanime are located.
+`/seanime-config` - This is where the configuration files for Seanime are
+located.
 
 `downloads` - Torrent downloads dir
