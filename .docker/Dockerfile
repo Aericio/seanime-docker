@@ -34,7 +34,7 @@ RUN if [ "$TARGETARCH" = "arm" ] && [ "$TARGETVARIANT" = "v7" ]; then \
     fi
 
 # Stage 3: Final Stage
-FROM --platform=$TARGETPLATFORM nvidia/cuda:13.0.2-runtime-ubuntu24.04
+FROM --platform=$TARGETPLATFORM nvidia/cuda:13.0.2-base-ubuntu24.04
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
