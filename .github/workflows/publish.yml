@@ -12,16 +12,17 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Run daily to check for new releases
 
+permissions:
+  packages: write
+          git commit -m "Update to seanime version ${{ steps.seanime_release.outputs.LATEST_RELEASE }}" || echo "No changes to commit"
+  contents: write
+  id-token: write
+
 jobs:
   check_and_build:
     name: Check for new release and build multiarch Docker image
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: write
-      id-token: write
     steps:
-    
       - name: Check out the repo
         uses: actions/checkout@v4
 
@@ -63,7 +64,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
@@ -96,5 +97,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .version
-          git commit -m "Update to seanime version ${{ steps.seanime_release.outputs.LATEST_RELEASE }}"
+          git commit -m "Update to seanime version ${{ steps.seanime_release.outputs.LATEST_RELEASE }}" || echo "No changes to commit"
           git push
