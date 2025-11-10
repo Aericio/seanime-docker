@@ -14,7 +14,6 @@ on:
 
 permissions:
   packages: write
-          git commit -m "Update to seanime version ${{ steps.seanime_release.outputs.LATEST_RELEASE }}" || echo "No changes to commit"
   contents: write
   id-token: write
 
