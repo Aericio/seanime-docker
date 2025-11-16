@@ -47,6 +47,16 @@ jobs:
             echo "No new version. Skipping build."
           fi
 
+      - uses: jlumbroso/free-disk-space@main
+        if: ${{ steps.check_build.outputs.BUILD_NEEDED == 'true' }}
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          swap-storage: true  
+
       - name: Prepare the repository
         if: ${{ steps.check_build.outputs.BUILD_NEEDED == 'true' }}
         run: |
